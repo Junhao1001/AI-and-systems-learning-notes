@@ -252,3 +252,61 @@ $$
 - The lower RNNs should compute lower-level features
 - higher RNNs should  compute higher-level features
 - High-performing RNNs are usually multi-layer
+
+
+
+## Machine Translation
+
+### Statistical Machine Learning
+
+- Statistical Machine Learning: Learn **a probabilistic model** from data
+  - We want to find best English sentence *y,* given French sentence *x*
+  - Use Bayes Rule to separate the objective into **two components**:
+
+$$
+=\mathrm{argmax}_yP(x|y)P(y)
+$$
+
+- $P(x|y)$ : Translation Model,  Models how words and phrases, should be translated
+- $P(y)$: Language Model, Models how to write good English
+
+### Sequence to Sequence Model
+
+- **Seq2Seq**:
+
+  - uses one network to **encode** the "input sequence" into a representation
+  -  uses another network to **decode** the representation into an "output sequence"
+  - Basic Architecture: Encoder -Decoder
+
+  ```
+  x1 → x2 → ... → xT  →  Encoder  →  c  →  Decoder → y1 → y2 → ... → yT'
+  ```
+
+- Why Seq2Seq:  Many tasks are **not "aligned"** sequence; Normal RNN can't handle variable length → mapping
+
+- **Encoder:**
+
+  - always use **the hidden state at the last time step** to represent the whole input sequence
+
+$$
+h_t^{enc} = f(x_t, h_{t-1}^{enc}) \\
+c = h_T^{enc}
+$$
+
+- Seq2Seq +  attention: the output of encoder is the entire hidden state sequence
+
+$$
+\boxed{
+H = \{h_1, h_2, \dots, h_T\}
+}
+$$
+
+- **Decoder:** is also a RNN(?)
+  - input: last token 
+  - output: The probability distribution of the current token
+
+$$
+h_t^{dec} = f(y_{t-1}, h_{t-1}^{dec}, c) \\
+P(y_t|y_{<t},x)=\mathrm{softmax}(Wh_t^{dec})
+$$
+

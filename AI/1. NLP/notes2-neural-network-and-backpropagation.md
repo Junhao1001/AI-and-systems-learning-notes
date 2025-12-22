@@ -83,3 +83,16 @@ $$
 f^{\prime}(x)\approx\frac{f(x+h)-f(x-h)}{2h}
 $$
 
+
+
+## Others
+
+### Regularization
+
+- Suppression parameters are too large; avoid overfitting;
+- if one parameter is too larger, the model will be very sensitive to the corresponding feature, which also means **the poor generalization**
+- always use L2 regularzation
+
+### dropout
+
+- Randomly "turn off" some neurons during training, forcing the model to **not rely on certain specific neurons**, thereby improving generalization capabilities
